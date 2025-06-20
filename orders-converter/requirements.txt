@@ -3,4 +3,5 @@ pandas
 openpyxl
 pytest
 ruff
-coverage 
+coverage
+Pillow 

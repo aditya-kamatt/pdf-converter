@@ -17,4 +17,8 @@ pytest = "*"
 
 [build-system]
 requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta" 
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+orders-converter = "orders_converter.cli:main"
+orders-converter-gui = "orders_converter.gui:main" 
