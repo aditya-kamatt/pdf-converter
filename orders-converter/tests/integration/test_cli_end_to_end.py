@@ -3,6 +3,10 @@ import subprocess
 import tempfile
 import shutil
 import pytest
+import pandas as pd
+from pandas.testing import assert_frame_equal
+
+from orders_converter.core.parser import extract_table_rows
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), '../fixtures')
 SAMPLE_PDF = os.path.join(FIXTURE_DIR, 'sample1.pdf')
@@ -13,14 +17,13 @@ def test_cli_end_to_end():
     with tempfile.TemporaryDirectory() as tmpdir:
         out_xlsx = os.path.join(tmpdir, 'out.xlsx')
         result = subprocess.run([
-            'python', '-m', 'orders_converter', SAMPLE_PDF, '-o', out_xlsx
+            'python', '-m', 'orders_converter.cli', SAMPLE_PDF, '--output', out_xlsx
         ], capture_output=True, text=True)
-        assert result.returncode == 0
+        assert result.returncode == 0, f"CLI Error: {result.stderr}"
+
         assert os.path.exists(out_xlsx)
-        # If golden file exists, compare checksums
-        if os.path.exists(GOLDEN_XLSX):
-            import hashlib
-            def file_md5(path):
-                with open(path, 'rb') as f:
-                    return hashlib.md5(f.read()).hexdigest()
-            assert file_md5(out_xlsx) == file_md5(GOLDEN_XLSX) 
+        
+        # Compare content
+        expected_df = pd.read_excel(GOLDEN_XLSX)
+        actual_df = pd.read_excel(out_xlsx)
+        assert_frame_equal(actual_df, expected_df) 

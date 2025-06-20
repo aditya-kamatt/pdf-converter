@@ -2,7 +2,9 @@
 name = "orders-sheet-converter"
 version = "0.1.0"
 description = "Convert structured purchase-order PDFs to Excel."
-authors = ["Your Name <your.email@example.com>"]
+authors = [
+    {name = "Aditya Ajit Kamat", email = "adityakamat2000@icloud.com"}
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.12"
