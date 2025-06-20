@@ -1,0 +1,18 @@
+[project]
+name = "orders-sheet-converter"
+version = "0.1.0"
+description = "Convert structured purchase-order PDFs to Excel."
+authors = ["Your Name <your.email@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+pdfplumber = "*"
+pandas = "*"
+openpyxl = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta" 
